@@ -17,7 +17,6 @@ def levenshtein(s, t):
                 v0[j] = v1[j]
                 
         return v1[len(t)]
-print (levenshtein('startup','sTarfi$h'))
     
 import csv
 
@@ -43,16 +42,14 @@ for i in range(8):
     for item in row_list:
         row_str_list = item.split(',')
         # claculate levenshtein distance
-        # should we clean the empty str?
-        #if row_str_list[6*i + 9] != '':
-        typB_distance = levenshtein(row_str_list[6*i + 9],typB_right_list[i + 1])
-        typB_distance_list[i].append(typB_distance)
-        #if row_str_list[6*i + 10] != '':
-        typC_distance = levenshtein(row_str_list[6*i + 10],typC_right_list[i + 1])
-        typC_distance_list[i].append(typC_distance)
+        # clean the empty string
+        if row_str_list[6*i + 9] != '':
+            typB_distance = levenshtein(row_str_list[6*i + 9],typB_right_list[i + 1])
+            typB_distance_list[i].append(typB_distance)
+        if row_str_list[6*i + 10] != '':
+            typC_distance = levenshtein(row_str_list[6*i + 10],typC_right_list[i + 1])
+            typC_distance_list[i].append(typC_distance)
     print('distance of ' + typB_right_list[i + 1] + ':')
     print(typB_distance_list[i][1:])
     print('distance of ' + typC_right_list[i + 1] + ':')
     print(typC_distance_list[i][1:])
-
-
