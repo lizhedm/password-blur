@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Filters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+        position: absolute;
+        height: 40px;
+        width: 400px;
+       
+        font-size: 16px;
+        font-family: serif;
+        background-color: transparent;
+        color: transparent;
+        caret-color:red;
+
+        border: 1px solid black; 
+        margin: 10px;
+    }
+    canvas{
+        border: 1px solid white ; 
+        margin: 10px;
+    }
+  </style>
+</head>
+    
+<body style=" text-align: center; margin: 10px;">
+<script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
+
+<div>
+    <p>Blur_filter</p>
+    <input type="text" id="text_input_blur_filter">
+    <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Brightness_filter</p>
+    <input type="text" id="text_input_brightness_filter">
+    <canvas id="canvas_brightness_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Bump_filter</p>
+    <input type="text" id="text_input_bump_filter">
+    <canvas id="canvas_bump_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>CircleSmear_filter</p>
+    <input type="text" id="text_input_circlesmear_filter">
+    <canvas id="canvas_circlesmear_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Contrast_filter</p>
+    <input type="text" id="text_input_contrast_filter">
+    <canvas id="canvas_contrast_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>CrossSmear_filter</p>
+    <input type="text" id="text_input_crosssmear_filter">
+    <canvas id="canvas_crosssmear_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Diffusion_filter</p>
+    <input type="text" id="text_input_diffusion_filter">
+    <canvas id="canvas_diffusion_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Dither_filter</p>
+    <input type="text" id="text_input_dither_filter">
+    <canvas id="canvas_dither_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Edge_filter</p>
+    <input type="text" id="text_input_edge_filter">
+    <canvas id="canvas_edge_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Emboss_filter</p>
+    <input type="text" id="text_input_emboss_filter">
+    <canvas id="canvas_emboss_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Exposure_filter</p>
+    <input type="text" id="text_input_exposure_filter">
+    <canvas id="canvas_exposure_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Gain_filter</p>
+    <input type="text" id="text_input_gain_filter">
+    <canvas id="canvas_gain_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Gamma_filter</p>
+    <input type="text" id="text_input_gamma_filter">
+    <canvas id="canvas_gamma_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Grayscale_filter</p>
+    <input type="text" id="text_input_grayscale_filter">
+    <canvas id="canvas_grayscale_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Hue_filter</p>
+    <input type="text" id="text_input_hue_filter">
+    <canvas id="canvas_hue_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Invert_filter</p>
+    <input type="text" id="text_input_invert_filter">
+    <canvas id="canvas_invert_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Kaleidoscope_filter</p>
+    <input type="text" id="text_input_kaleidoscope_filter">
+    <canvas id="canvas_kaleidoscope_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>LensDistortion_filter</p>
+    <input type="text" id="text_input_lensdistortion_filter">
+    <canvas id="canvas_lensdistortion_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>LineSmear_filter</p>
+    <input type="text" id="text_input_linesmear_filter">
+    <canvas id="canvas_linesmear_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Maximum_filter</p>
+    <input type="text" id="text_input_maximum_filter">
+    <canvas id="canvas_maximum_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Median_filter</p>
+    <input type="text" id="text_input_median_filter">
+    <canvas id="canvas_median_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Minimum_filter</p>
+    <input type="text" id="text_input_minimum_filter">
+    <canvas id="canvas_minimum_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Noise_filter</p>
+    <input type="text" id="text_input_noise_filter">
+    <canvas id="canvas_noise_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Oil_filter</p>
+    <input type="text" id="text_input_oil_filter">
+    <canvas id="canvas_oil_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Opacity_filter</p>
+    <input type="text" id="text_input_opacity_filter">
+    <canvas id="canvas_opacity_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Pinch_filter</p>
+    <input type="text" id="text_input_pinch_filter">
+    <canvas id="canvas_pinch_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Pixelation_fliter</p>
+    <input type="text" id="text_input_pixelation_filter">
+    <canvas id="canvas_pixelation_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Posterize_fliter</p>
+    <input type="text" id="text_input_posterize_filter">
+    <canvas id="canvas_posterize_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>RGBAdjust_fliter</p>
+    <input type="text" id="text_input_rgbadjust_filter">
+    <canvas id="canvas_rgbadjust_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Saturation_fliter</p>
+    <input type="text" id="text_input_saturation_filter">
+    <canvas id="canvas_saturation_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>SawtoothRipple_fliter</p>
+    <input type="text" id="text_input_sawtoothripple_filter">
+    <canvas id="canvas_sawtoothripple_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Sepia_fliter</p>
+    <input type="text" id="text_input_sepia_filter">
+    <canvas id="canvas_sepia_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Sharpen_fliter</p>
+    <input type="text" id="text_input_sharpen_filter">
+    <canvas id="canvas_sharpen_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>SineRipple_fliter</p>
+    <input type="text" id="text_input_sineripple_filter">
+    <canvas id="canvas_sineripple_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Solarize_fliter</p>
+    <input type="text" id="text_input_solarize_filter">
+    <canvas id="canvas_solarize_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Sparkle_fliter</p>
+    <input type="text" id="text_input_sparkle_filter">
+    <canvas id="canvas_sparkle_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>SquareSmear_fliter</p>
+    <input type="text" id="text_input_squaresmear_filter">
+    <canvas id="canvas_squaresmear_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Threshold_fliter</p>
+    <input type="text" id="text_input_threshold_filter">
+    <canvas id="canvas_threshold_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>TriangleRipple_fliter</p>
+    <input type="text" id="text_input_triangleripple_filter">
+    <canvas id="canvas_triangleripple_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Twirl_fliter</p>
+    <input type="text" id="text_input_twirl_filter">
+    <canvas id="canvas_twirl_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>Vignette_fliter</p>
+    <input type="text" id="text_input_vignette_filter">
+    <canvas id="canvas_vignette_filter" width="400" height="40"></canvas>
+</div>
+
+<div>
+    <p>WaterRipple_fliter</p>
+    <input type="text" id="text_input_waterripple_filter">
+    <canvas id="canvas_waterripple_filter" width="400" height="40"></canvas>
+</div>
+
+<script>
+    // the recommended ranges are given below, we can change it later to find out the most suitable ones for our requirments.
+    // and all the values can also be found at : 
+    // https://github.com/JoelBesada/JSManipulate/blob/master/filter%20list/index.html
+    blur_default = {amount:2}; // amount [0,10]
+    brightness_default = {amount:0.5}; // amount [-1,1]
+    circlesmear_default = {size:4,density:0.5,mix:0.5}; // size[1,10] density[0,1] mix[0,1]
+    contrast_default = {amount:0.5}; // amount [0,2]
+    crosssmear_default = {distance:1,density:0.5,mix:0.5}; // distance [0,30] density[0,1] mix [0,1]
+    diffusion_default = {scale:4}; // scale [1,100]
+    dither_default = {levels:30,color:!0}; // levels [2,30] color [false or true]
+    emboss_default = {height:1,angle:135,elevation:30}; // height [1,10] angle[0,360] elevation[0,180]
+    exposure_default = {exposure:0.5}; // exposure [0,5]
+    gain_default = {gain:0.5,bias:0.5}; // gain[0,1] bias [0,1]
+    gamma_default = {amount:2}; // amount [0,2]
+    hue_default = {amount:0.5}; // amount [-1,1]
+    kaleidoscope_default = {angle:0,rotation:0,sides:3,centerX:0.5,centerY:0.5}; // angle [0,360] rotation [0,360] sides [1,30] centerX [0,1] centerY [0,1]
+    lensdistortion_default = {refraction:1.5,radius:50,centerX:0.5,centerY:0.5}; // refraction [1,10] radius [1,200] centerX [0,1] centerY [0,1]
+    linesmear_default = {distance:8,density:0.5,angle:0,mix:0}; // distance [1,30] density [0,1] angle [0,360] mix [0,1]
+    noise_default = {amount:99,density:1,monochrome:!0}; // amount [0,100] density [0,1] monochrome [true or false]
+    oil_default = {range:5}; // range [0,5]
+    opacity_default = {amount:1}; // amount [0,1]
+    pinch_default = {amount:0.5,radius:100,angle:0,centerX:0.5,centerY:0.5};
+    pixelation_default = {size: 2};
+    posterize_default = {levels:6};
+    rgbadjust_default = {red:0.5,green:1,blue:1.2};
+    saturation_default = {amount:1};
+    sawtoothripple_default = {xAmplitude:5,yAmplitude:5,xWavelength:16,yWavelength:16};
+    sepia_default = {amount:10};
+    sineripple_default = {xAmplitude:5,yAmplitude:5,xWavelength:16,yWavelength:16};
+    sparkle_default = {rays:50,size:25,amount:50,randomness:25,centerX:0.5,centerY:0.5};
+    squaresmear_default = {size:4,density:0.5,mix:0.5};
+    threshold_default = {threshold:127};
+    triangleripple_default = {xAmplitude:5,yAmplitude:5,xWavelength:16,yWavelength:16};
+    twirl_default = {radius:100,angle:180,centerX:0.5,centerY:0.5};
+    vignette_default = {amount:0.3};
+    waterripple_default = {phase:0,radius:50,wavelength:16,amplitude:10,centerX:0.5,centerY:0.5};
+
+
+
+    // blur_filter
+    text_input_blur_filter = document.getElementById('text_input_blur_filter');  
+    text_input_blur_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_blur_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_blur_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new BlurFilter().filter(data, blur_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // brightness_filter
+    text_input_brightness_filter = document.getElementById('text_input_brightness_filter');  
+    text_input_brightness_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_brightness_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_brightness_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new BrightnessFilter().filter(data, brightness_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // bump_filter   //bump filter has no default value and can not change filter ranges.
+    text_input_bump_filter = document.getElementById('text_input_bump_filter');  
+    text_input_bump_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_bump_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_bump_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new BumpFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // CircleSmear_filter   
+    text_input_circlesmear_filter = document.getElementById('text_input_circlesmear_filter');  
+    text_input_circlesmear_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_circlesmear_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_circlesmear_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new CircleSmearFilter().filter(data,circlesmear_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Contrast_filter   
+    text_input_contrast_filter = document.getElementById('text_input_contrast_filter');  
+    text_input_contrast_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_contrast_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_contrast_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new ContrastFilter().filter(data,contrast_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // CrossSmear_filter   
+    text_input_crosssmear_filter = document.getElementById('text_input_crosssmear_filter');  
+    text_input_crosssmear_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_crosssmear_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_crosssmear_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new CrossSmearFilter().filter(data,crosssmear_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Diffusion_filter   
+    text_input_diffusion_filter = document.getElementById('text_input_diffusion_filter');  
+    text_input_diffusion_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_diffusion_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_diffusion_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new DiffusionFilter().filter(data,diffusion_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Dither_filter   
+    text_input_dither_filter = document.getElementById('text_input_dither_filter');  
+    text_input_dither_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_dither_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_dither_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new DitherFilter().filter(data,dither_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Edge_filter   //Edge filter has no default value and can not change filter ranges.
+    text_input_edge_filter = document.getElementById('text_input_edge_filter');  
+    text_input_edge_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_edge_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_edge_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new EdgeFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Emboss_filter   
+    text_input_emboss_filter = document.getElementById('text_input_emboss_filter');  
+    text_input_emboss_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_emboss_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_emboss_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new EmbossFilter().filter(data,emboss_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Exposure_filter   
+    text_input_exposure_filter = document.getElementById('text_input_exposure_filter');  
+    text_input_exposure_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_exposure_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_exposure_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new ExposureFilter().filter(data,exposure_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Gain_filter   
+    text_input_gain_filter = document.getElementById('text_input_gain_filter');  
+    text_input_gain_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_gain_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_gain_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new GainFilter().filter(data,gain_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Gamma_filter   
+    text_input_gamma_filter = document.getElementById('text_input_gamma_filter');  
+    text_input_gamma_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_gamma_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_gamma_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new GammaFilter().filter(data,gamma_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Grayscale_filter   //Grayscale filter has no default value and can not change filter ranges.
+    text_input_grayscale_filter = document.getElementById('text_input_grayscale_filter');  
+    text_input_grayscale_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_grayscale_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_grayscale_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new GrayscaleFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Hue_filter   
+    text_input_hue_filter = document.getElementById('text_input_hue_filter');  
+    text_input_hue_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_hue_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_hue_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new HueFilter().filter(data,hue_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Invert_filter   // has no default value
+    text_input_invert_filter = document.getElementById('text_input_invert_filter');  
+    text_input_invert_filter.onkeyup = function() {    
+        
+        var canvas = document.getElementById('canvas_invert_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_invert_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new InvertFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Kaleidoscope_filter   
+    text_input_kaleidoscope_filter = document.getElementById('text_input_kaleidoscope_filter');  
+    text_input_kaleidoscope_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_kaleidoscope_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_kaleidoscope_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new KaleidoscopeFilter().filter(data,kaleidoscope_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // LensDistortion_filter   
+    text_input_lensdistortion_filter = document.getElementById('text_input_lensdistortion_filter');  
+    text_input_lensdistortion_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_lensdistortion_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_lensdistortion_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new LensDistortionFilter().filter(data,lensdistortion_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // LineSmear_filter   
+    text_input_linesmear_filter = document.getElementById('text_input_linesmear_filter');  
+    text_input_linesmear_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_linesmear_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_linesmear_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new LineSmearFilter().filter(data,linesmear_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Maximum_filter    // has no default value
+    text_input_maximum_filter = document.getElementById('text_input_maximum_filter');  
+    text_input_maximum_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_maximum_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_maximum_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new MaximumFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Median_filter    // has no default value
+    text_input_median_filter = document.getElementById('text_input_median_filter');  
+    text_input_median_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_median_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_median_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new MedianFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+
+    // Minimum_filter    // has no default value
+    text_input_minimum_filter = document.getElementById('text_input_minimum_filter');  
+    text_input_minimum_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_minimum_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_minimum_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new MinimumFilter().filter(data);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Noise_filter    
+    text_input_noise_filter = document.getElementById('text_input_noise_filter');  
+    text_input_noise_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_noise_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_noise_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new NoiseFilter().filter(data,noise_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Oil_filter    
+    text_input_oil_filter = document.getElementById('text_input_oil_filter');  
+    text_input_oil_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_oil_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_oil_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new OilFilter().filter(data,oil_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Opacity_filter    
+    text_input_opacity_filter = document.getElementById('text_input_opacity_filter');  
+    text_input_opacity_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_opacity_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_opacity_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new OpacityFilter().filter(data,opacity_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Pinch_filter    
+    text_input_pinch_filter = document.getElementById('text_input_pinch_filter');  
+    text_input_pinch_filter.onkeyup = function() {    
+
+        var canvas = document.getElementById('canvas_pinch_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_pinch_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new PinchFilter().filter(data,pinch_default);
+         
+        ctx.putImageData(data,0,0);    
+    };
+
+    // Pixelation_fliter
+    text_input_pixelation_filter = document.getElementById('text_input_pixelation_filter');  
+    text_input_pixelation_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_pixelation_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_pixelation_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new PixelationFilter().filter(data, {size: 2}); // ???????
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Posterize_fliter
+    text_input_posterize_filter = document.getElementById('text_input_posterize_filter');  
+    text_input_posterize_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_posterize_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_posterize_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new PosterizeFilter().filter(data, posterize_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+    
+    // RGBAdjust_fliter
+    text_input_rgbadjust_filter = document.getElementById('text_input_rgbadjust_filter');  
+    text_input_rgbadjust_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_rgbadjust_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_rgbadjust_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new RGBAdjustFilter().filter(data, rgbadjust_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };   
+
+    // Saturation_fliter
+    text_input_saturation_filter = document.getElementById('text_input_saturation_filter');  
+    text_input_saturation_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_saturation_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_saturation_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SaturationFilter().filter(data, saturation_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // SawtoothRipple_fliter
+    text_input_sawtoothripple_filter = document.getElementById('text_input_sawtoothripple_filter');  
+    text_input_sawtoothripple_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_sawtoothripple_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_sawtoothripple_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SawtoothRippleFilter().filter(data, sawtoothripple_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };   
+
+    // Sepia_fliter
+    text_input_sepia_filter = document.getElementById('text_input_sepia_filter');  
+    text_input_sepia_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_sepia_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_sepia_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SepiaFilter().filter(data, sepia_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Sharpen_fliter  // has no default value
+    text_input_sharpen_filter = document.getElementById('text_input_sharpen_filter');  
+    text_input_sharpen_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_sharpen_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_sharpen_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SharpenFilter().filter(data); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // SineRipple_fliter  
+    text_input_sineripple_filter = document.getElementById('text_input_sineripple_filter');  
+    text_input_sineripple_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_sineripple_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_sineripple_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SineRippleFilter().filter(data,sineripple_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Solarize_fliter   has no default value
+    text_input_solarize_filter = document.getElementById('text_input_solarize_filter');  
+    text_input_solarize_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_solarize_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_solarize_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SolarizeFilter().filter(data); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };  
+
+    // Sparkle_fliter  
+    text_input_sparkle_filter = document.getElementById('text_input_sparkle_filter');  
+    text_input_sparkle_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_sparkle_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_sparkle_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SparkleFilter().filter(data,sparkle_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // SquareSmear_fliter  
+    text_input_squaresmear_filter = document.getElementById('text_input_squaresmear_filter');  
+    text_input_squaresmear_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_squaresmear_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_squaresmear_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new SquareSmearFilter().filter(data,squaresmear_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Threshold_fliter  
+    text_input_threshold_filter = document.getElementById('text_input_threshold_filter');  
+    text_input_threshold_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_threshold_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_threshold_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new ThresholdFilter().filter(data,threshold_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // TriangleRipple_fliter  
+    text_input_triangleripple_filter = document.getElementById('text_input_triangleripple_filter');  
+    text_input_triangleripple_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_triangleripple_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_triangleripple_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new TriangleRippleFilter().filter(data,triangleripple_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Twirl_fliter  
+    text_input_twirl_filter = document.getElementById('text_input_twirl_filter');  
+    text_input_twirl_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_twirl_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_twirl_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new TwirlFilter().filter(data,twirl_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    // Vignette_fliter  
+    text_input_vignette_filter = document.getElementById('text_input_vignette_filter');  
+    text_input_vignette_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_vignette_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_vignette_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new VignetteFilter().filter(data,vignette_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };   
+
+    // WaterRipple_fliter  
+    text_input_waterripple_filter = document.getElementById('text_input_waterripple_filter');  
+    text_input_waterripple_filter.onkeyup = function() {
+        
+        var canvas = document.getElementById('canvas_waterripple_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_waterripple_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new WaterRippleFilter().filter(data,waterripple_default); 
+         
+        ctx.putImageData(data,0,0);
+            
+    };    
+
+    function initializeCanvas(canvas,text_input){
+        var ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        ctx.rect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.fillStyle = "black";
+        ctx.font = '16px serif';
+        ctx.fillText(text_input.value, 0, canvas.height/2 + 8); 
+        return ctx;
+    }      
+</script>
+</body>
+
+</html>
