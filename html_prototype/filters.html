@@ -34,8 +34,9 @@
 </head>
     
 <body style=" text-align: center; margin: 10px;">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="halftone-js/jquery.halftone.min.js"></script>
 <script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
-<script type="text/javascript" src="https://github.com/M-A-19/halftone-js/blob/master/src/jquery.halftone.js"></script>
 
 <div>
     <p>Blur_filter</p>
@@ -412,18 +413,18 @@
 
     function refreshHalftoneCanvas(){
         halftone_range_value = parseFloat(document.getElementById('halftone_range').value);  
-
+        console.log(halftone_range_value);
         var canvas = document.getElementById('canvas_halftone_filter');
         var ctx = canvas.getContext("2d");
-        var grad=ctx.createLinearGradient(0,0,170,0);
+        var grad = ctx.createLinearGradient(0,0,10,0);
         grad.addColorStop(0,"#000");
         grad.addColorStop(1,"#fff");
-        ctx.fillStyle=grad;
-        ctx.fillRect(0,0,300,200);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,400,40);
 
         //Do the halftone
-        $('#canvas-test').halftone({
-                             'sample' : 7,
+        $('#canvas_halftone_filter').halftone({
+                             'sample' : halftone_range_value,
                              'background' : '#000000'
                          });
     }
