@@ -26,6 +26,7 @@
         margin: 10px;
     }
     input[type=range] {
+        position: inherit;
         height: 36px;
         width: 200px;
     }
@@ -34,18 +35,36 @@
     
 <body style=" text-align: center; margin: 10px;">
 <script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
+<script type="text/javascript" src="https://github.com/M-A-19/halftone-js/blob/master/src/jquery.halftone.js"></script>
 
 <div>
     <p>Blur_filter</p>
     <input type="text" id="text_input_blur_filter">
     <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
     <div>
-        <span id="valBox">Filter value: 5</span>
-        <div>
-            <input type="range" id="blur_range" name="points" min="0" max="10" oninput="showVal(this.value)" onchange="showVal(this.value)">
-        </div>
+        <p id="blur_valBox">Filter value: 5</p>
+            <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
     </div>
+</div>
 
+<div>
+    <p>Pixelation_fliter</p>
+    <input type="text" id="text_input_pixelation_filter">
+    <canvas id="canvas_pixelation_filter" width="400" height="40"></canvas>
+    <div>
+        <p id="pixelation_valBox">Filter value: 25</p>
+            <input type="range" id="pixelation_range" name="points" min="0" max="50" step="0.1" oninput="showPixelationVal(this.value)" onchange="showPixelationVal(this.value)">
+    </div>
+</div>
+
+<div>
+    <p>Halftone_fliter</p>
+    <input type="text" id="text_input_halftone_filter">
+    <canvas id="canvas_halftone_filter" width="400" height="40"></canvas>
+    <div>
+        <p id="halftone_valBox">Filter value: 25</p>
+            <input type="range" id="halftone_range" name="points" min="0" max="50" step="0.1" oninput="showHalftoneVal(this.value)" onchange="showHalftoneVal(this.value)">
+    </div>
 </div>
 
 <!-- 
@@ -199,11 +218,7 @@
     <canvas id="canvas_pinch_filter" width="400" height="40"></canvas>
 </div>
 
-<div>
-    <p>Pixelation_fliter</p>
-    <input type="text" id="text_input_pixelation_filter">
-    <canvas id="canvas_pixelation_filter" width="400" height="40"></canvas>
-</div>
+
 
 <div>
     <p>Posterize_fliter</p>
@@ -320,7 +335,7 @@
     oil_default = {range:5}; // range [0,5]
     opacity_default = {amount:1}; // amount [0,1]
     pinch_default = {amount:0.5,radius:100,angle:0,centerX:0.5,centerY:0.5};
-    pixelation_default = {size: 2};
+    // pixelation_default = {size: 2};
     posterize_default = {levels:6};
     rgbadjust_default = {red:0.5,green:1,blue:1.2};
     saturation_default = {amount:1};
@@ -341,18 +356,12 @@
     text_input_blur_filter = document.getElementById('text_input_blur_filter');
     
     text_input_blur_filter.onkeyup = function() {  
-        refreshCanvas();  
-    };
-
-    function showVal(newVal){
-        document.getElementById("valBox").innerHTML = 'Filter value: ' + newVal;
-        refreshCanvas();
+        refreshBlurCanvas();  
     }
 
-    function refreshCanvas(){
-        blur_range_value = parseInt(document.getElementById('blur_range').value);  
+    function refreshBlurCanvas(){
+        blur_range_value = parseFloat(document.getElementById('blur_range').value);  
         blur_default = {amount: blur_range_value};  
-        console.log(blur_default);
         var canvas = document.getElementById('canvas_blur_filter');
         
         var ctx = initializeCanvas(canvas,text_input_blur_filter);
@@ -363,6 +372,71 @@
          
         ctx.putImageData(data,0,0); 
     }
+
+    function showBlurVal(newVal){
+        document.getElementById("blur_valBox").innerHTML = 'Filter value: ' + newVal;
+        refreshBlurCanvas();
+    }
+
+    // Pixelation_fliter
+    text_input_pixelation_filter = document.getElementById('text_input_pixelation_filter');  
+    text_input_pixelation_filter.onkeyup = function() {
+        refreshPixelationCanvas();
+    };    
+
+    function refreshPixelationCanvas(){
+        pixelation_range_value = parseFloat(document.getElementById('pixelation_range').value);  
+        pixelation_default = {amount: pixelation_range_value}; 
+        console.log(pixelation_default); 
+        var canvas = document.getElementById('canvas_pixelation_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_pixelation_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new PixelationFilter().filter(data, pixelation_default);
+         
+        ctx.putImageData(data,0,0); 
+    }
+
+    function showPixelationVal(newVal){
+        document.getElementById("pixelation_valBox").innerHTML = 'Filter value: ' + newVal;
+        refreshPixelationCanvas();
+    }    
+
+    // Halftone_fliter
+    text_input_halftone_filter = document.getElementById('text_input_halftone_filter');  
+    text_input_halftone_filter.onkeyup = function() {
+        refreshHalftoneCanvas();
+    };    
+
+    function refreshHalftoneCanvas(){
+        halftone_range_value = parseFloat(document.getElementById('halftone_range').value);  
+
+        var canvas = document.getElementById('canvas_halftone_filter');
+        var ctx = canvas.getContext("2d");
+        var grad=ctx.createLinearGradient(0,0,170,0);
+        grad.addColorStop(0,"#000");
+        grad.addColorStop(1,"#fff");
+        ctx.fillStyle=grad;
+        ctx.fillRect(0,0,300,200);
+
+        //Do the halftone
+        $('#canvas-test').halftone({
+                             'sample' : 7,
+                             'background' : '#000000'
+                         });
+    }
+
+    function showHalftoneVal(newVal){
+        document.getElementById("halftone_valBox").innerHTML = 'Filter value: ' + newVal;
+        refreshHalftoneCanvas();
+    }    
+
+    
+
+
+
 
     // brightness_filter
     text_input_brightness_filter = document.getElementById('text_input_brightness_filter');  
@@ -740,21 +814,7 @@
         ctx.putImageData(data,0,0);    
     };
 
-    // Pixelation_fliter
-    text_input_pixelation_filter = document.getElementById('text_input_pixelation_filter');  
-    text_input_pixelation_filter.onkeyup = function() {
-        
-        var canvas = document.getElementById('canvas_pixelation_filter');
-        
-        var ctx = initializeCanvas(canvas,text_input_pixelation_filter);
-
-        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
-        
-        new PixelationFilter().filter(data, {size: 2}); // ???????
-         
-        ctx.putImageData(data,0,0);
-            
-    };    
+    
 
     // Posterize_fliter
     text_input_posterize_filter = document.getElementById('text_input_posterize_filter');  
