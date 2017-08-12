@@ -35,7 +35,7 @@
     
 <body style=" text-align: center; margin: 10px;">
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="halftone-js/jquery.halftone.min.js"></script>
+<script type="text/javascript" src="halftone-js/build/jquery.halftone.min.js"></script>
 <script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
 
 <div>
@@ -43,7 +43,7 @@
     <input type="text" id="text_input_blur_filter">
     <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
     <div>
-        <p id="blur_valBox">Filter value: 5</p>
+        <p id="blur_valBox">Filter value: 25</p>
             <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
     </div>
 </div>
@@ -53,8 +53,8 @@
     <input type="text" id="text_input_pixelation_filter">
     <canvas id="canvas_pixelation_filter" width="400" height="40"></canvas>
     <div>
-        <p id="pixelation_valBox">Filter value: 25</p>
-            <input type="range" id="pixelation_range" name="points" min="0" max="50" step="0.1" oninput="showPixelationVal(this.value)" onchange="showPixelationVal(this.value)">
+        <p id="pixelation_valBox">Filter value: 2</p>
+            <input type="range" id="pixelation_range" name="points" value="2" min="0" max="50" step="0.1" oninput="showPixelationVal(this.value)" onchange="showPixelationVal(this.value)">
     </div>
 </div>
 
@@ -387,7 +387,8 @@
 
     function refreshPixelationCanvas(){
         pixelation_range_value = parseFloat(document.getElementById('pixelation_range').value);  
-        pixelation_default = {amount: pixelation_range_value}; 
+        // pixelation_range_value = 2;
+        pixelation_default = {size: pixelation_range_value}; 
         console.log(pixelation_default); 
         var canvas = document.getElementById('canvas_pixelation_filter');
         
@@ -418,7 +419,7 @@
         var ctx = canvas.getContext("2d");
         var grad = ctx.createLinearGradient(0,0,10,0);
         grad.addColorStop(0,"#000");
-        grad.addColorStop(1,"#fff");
+        grad.addColorStop(1,"#f4f");
         ctx.fillStyle = grad;
         ctx.fillRect(0,0,400,40);
 
@@ -438,7 +439,7 @@
 
 
 
-
+/*
     // brightness_filter
     text_input_brightness_filter = document.getElementById('text_input_brightness_filter');  
     text_input_brightness_filter.onkeyup = function() {    
@@ -1056,7 +1057,7 @@
         ctx.putImageData(data,0,0);
             
     };    
-
+*/
     function initializeCanvas(canvas,text_input){
         var ctx = canvas.getContext('2d');
         ctx.beginPath();
