@@ -69,11 +69,12 @@
 </div>
 
 
+<!-- 
 <div>
     <p>Brightness_filter</p>
     <input type="text" id="text_input_brightness_filter">
     <canvas id="canvas_brightness_filter" width="400" height="40"></canvas>
-</div>
+</div> 
 
 <div>
     <p>Bump_filter</p>
@@ -310,7 +311,7 @@
     <input type="text" id="text_input_waterripple_filter">
     <canvas id="canvas_waterripple_filter" width="400" height="40"></canvas>
 </div>
-
+-->
 
 
 <script>
@@ -427,9 +428,6 @@
         ctx.font = '16px serif';
         
 
-        
-
-
         // var ctx = canvas.getContext("2d");
         var grad = ctx.createLinearGradient(0,0,400,0);
         grad.addColorStop(0,"rgb(255, 0, 128)");
@@ -455,7 +453,7 @@
     
 
 
-
+/*
 
     // brightness_filter
     text_input_brightness_filter = document.getElementById('text_input_brightness_filter');  
@@ -1074,6 +1072,7 @@
         ctx.putImageData(data,0,0);
             
     };    
+*/
 
     function initializeCanvas(canvas,text_input){
         var ctx = canvas.getContext('2d');
