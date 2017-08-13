@@ -54,7 +54,7 @@
     <canvas id="canvas_pixelation_filter" width="400" height="40"></canvas>
     <div>
         <p id="pixelation_valBox">Filter value: 2</p>
-            <input type="range" id="pixelation_range" name="points" value="2" min="0" max="50" step="0.1" oninput="showPixelationVal(this.value)" onchange="showPixelationVal(this.value)">
+            <input type="range" id="pixelation_range" name="points" value="2" min="1.5" max="5" step="0.05" oninput="showPixelationVal(this.value)" onchange="showPixelationVal(this.value)">
     </div>
 </div>
 
@@ -64,11 +64,11 @@
     <canvas id="canvas_halftone_filter" width="400" height="40"></canvas>
     <div>
         <p id="halftone_valBox">Filter value: 25</p>
-            <input type="range" id="halftone_range" name="points" min="0" max="50" step="0.1" oninput="showHalftoneVal(this.value)" onchange="showHalftoneVal(this.value)">
+            <input type="range" id="halftone_range" name="points" value="1.2" min="0" max="50" step="0.1" oninput="showHalftoneVal(this.value)" onchange="showHalftoneVal(this.value)">
     </div>
 </div>
 
-<!-- 
+
 <div>
     <p>Brightness_filter</p>
     <input type="text" id="text_input_brightness_filter">
@@ -311,7 +311,7 @@
     <canvas id="canvas_waterripple_filter" width="400" height="40"></canvas>
 </div>
 
--->
+
 
 <script>
     // the recommended ranges are given below, we can change it later to find out the most suitable ones for our requirments.
@@ -333,7 +333,7 @@
     lensdistortion_default = {refraction:1.5,radius:50,centerX:0.5,centerY:0.5}; // refraction [1,10] radius [1,200] centerX [0,1] centerY [0,1]
     linesmear_default = {distance:8,density:0.5,angle:0,mix:0}; // distance [1,30] density [0,1] angle [0,360] mix [0,1]
     noise_default = {amount:99,density:1,monochrome:!0}; // amount [0,100] density [0,1] monochrome [true or false]
-    oil_default = {range:5}; // range [0,5]
+    oil_default = {range:3}; // range [0,5]
     opacity_default = {amount:1}; // amount [0,1]
     pinch_default = {amount:0.5,radius:100,angle:0,centerX:0.5,centerY:0.5};
     // pixelation_default = {size: 2};
@@ -416,17 +416,34 @@
         halftone_range_value = parseFloat(document.getElementById('halftone_range').value);  
         console.log(halftone_range_value);
         var canvas = document.getElementById('canvas_halftone_filter');
-        var ctx = canvas.getContext("2d");
-        var grad = ctx.createLinearGradient(0,0,10,0);
-        grad.addColorStop(0,"#000");
-        grad.addColorStop(1,"#f4f");
+
+
+        var ctx = canvas.getContext('2d');
+        // ctx.beginPath();
+        // ctx.rect(0,0,canvas.width, canvas.height);
+        // ctx.fillStyle = "white";
+        // ctx.fill();
+        // ctx.fillStyle = "black";
+        ctx.font = '16px serif';
+        
+
+        
+
+
+        // var ctx = canvas.getContext("2d");
+        var grad = ctx.createLinearGradient(0,0,400,0);
+        grad.addColorStop(0,"rgb(255, 0, 128)");
+        grad.addColorStop(1,"rgb(255, 153, 51)");
         ctx.fillStyle = grad;
-        ctx.fillRect(0,0,400,40);
+        // ctx.fillRect(0,0,400,40);
+        ctx.fillText(text_input_halftone_filter.value, 0, canvas.height/2 + 8); 
 
         //Do the halftone
         $('#canvas_halftone_filter').halftone({
                              'sample' : halftone_range_value,
-                             'background' : '#000000'
+                             'background' : '#000000',
+                             'luminosity':'PerceivedB'
+
                          });
     }
 
@@ -439,7 +456,7 @@
 
 
 
-/*
+
     // brightness_filter
     text_input_brightness_filter = document.getElementById('text_input_brightness_filter');  
     text_input_brightness_filter.onkeyup = function() {    
@@ -1057,7 +1074,7 @@
         ctx.putImageData(data,0,0);
             
     };    
-*/
+
     function initializeCanvas(canvas,text_input){
         var ctx = canvas.getContext('2d');
         ctx.beginPath();
