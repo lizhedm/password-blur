@@ -45,10 +45,10 @@
     }
     .transparent_button{
         position: absolute;
-        left: 20%;
+        left: 1%;
         top:20%;
-        height: 400px;
-        width: 800px;
+        height: 60%;
+        width: 98%;
         background-color: #4CAF50;
         border: none;
         color: white;
@@ -56,7 +56,7 @@
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 16px;
+        font-size: 36px;
         margin: 4px 2px;
         cursor: pointer;
         z-index:2;
@@ -74,7 +74,13 @@
         cursor: pointer;
         z-index:1;
     }
+    .link_div {
+        position: absolute;
+        bottom: 5%;
+    }
   </style>
+
+
 </head>
     
 <body style=" text-align: center; margin: 10px;">
@@ -82,26 +88,98 @@
 <script type="text/javascript" src="halftone-js/build/jquery.halftone.min.js"></script>
 <script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
 
-<button class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
+<button type="button" class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
 <div>
-    <p>User ID:<input type="text" id="user_id" class="user_id"></p>
+    <p>User ID:<input type="text" id="user_id" class="user_id" onkeydown="userIdFinished()"></p>
 </div>
 <div>
-    <p>Blur_filter</p>
+    <p id="task_type">Blur_Typing_Task</p>
     <input type="text" id="text_input_blur_filter" class="transparent_input">
     <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
     <div>
-        <button type="submit" class="button">Submit</button>
+        <button type="button" class="button" onclick="finishTest()">Finish</button>
     </div>
     <div>
         <p id="blur_valBox">Filter value: 25</p>
             <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
     </div>
 </div>
+<div class="link_div">
+    <a href="blur.html" >blur</a><br>
+    <a href="mosaik.html" data-id="${IdValue}">mosaik</a><br>
+    <a href="crystallize.html">crystallize</a><br>
+    <a href="colorhalftone.html">colorhalftone</a>
+</div>
     
 <script>
+    checkCookie();
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        var user = getCookie("username");
+        // user does not saved to cookie
+        console.log('user' + user);
+        if (user != "") {
+            document.getElementById("user_id").value = user;
+        } else {
+            user = document.getElementById("user_id").value;
+            if (user != "" && user != null) {
+                setCookie("username", user, 365);
+            }
+        }
+    }
+
+    function userIdFinished(){
+        
+    }
+
+    var start_seconds;
+    var finish_seconds;
+    var typing_task_seconds;
+    var correcting_task_seconds;
     function startTest(){
+        start_seconds = new Date().getTime() / 1000;
+        console.log(start_seconds);
         document.getElementById("transparent_button").style.display = "none";
+        console.log(document.cookie);
+    }
+
+    function finishTest(){
+        finish_seconds = new Date().getTime() / 1000;
+        document.getElementById("transparent_button").style.display = "initial";
+        task_type = document.getElementById("task_type");
+        if (task_type.innerHTML == "Blur_Typing_Task") {
+            typing_task_seconds = finish_seconds - start_seconds;
+            task_type.innerHTML = "Blur_Correcting_Task";
+            console.log('typing_task_seconds' + typing_task_seconds);
+        } else if (task_type.innerHTML == "Blur_Correcting_Task"){
+            correcting_task_seconds = finish_seconds - start_seconds;
+            document.getElementById("text_input_blur_filter").value = "";
+            refreshBlurCanvas();
+            task_type.innerHTML = "Blur_Typing_Task";
+            console.log('correcting_task_seconds' + correcting_task_seconds);
+        }
     }
     // blur_filter
     text_input_blur_filter = document.getElementById('text_input_blur_filter');
