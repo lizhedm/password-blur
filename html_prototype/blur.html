@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input.transparent_input{
+        position: absolute;
+        height: 40px;
+        width: 400px;
+       
+        font-size: 16px;
+        font-family: Arial;
+        background-color: transparent;
+        color: transparent;
+        caret-color:red;
+        border: 1px solid black; 
+        margin: 10px;
+        z-index:1;
+    }
+    canvas{
+        border: 1px solid white ; 
+        margin: 10px;
+        z-index:1;
+    }
+    input[type=range] {
+        position: inherit;
+        height: 36px;
+        width: 200px;
+        z-index:1;
+    }
+    input.user_id{
+        position: relative;
+        height: 40px;
+        width: 200px;
+       
+        font-size: 16px;
+        font-family: Arial;
+        border: 1px solid black; 
+        margin: 10px;
+        z-index:3;
+    }
+    .transparent_button{
+        position: absolute;
+        left: 20%;
+        top:20%;
+        height: 400px;
+        width: 800px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        z-index:2;
+    }
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        z-index:1;
+    }
+  </style>
+</head>
+    
+<body style=" text-align: center; margin: 10px;">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="halftone-js/build/jquery.halftone.min.js"></script>
+<script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
+
+<button class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
+<div>
+    <p>User ID:<input type="text" id="user_id" class="user_id"></p>
+</div>
+<div>
+    <p>Blur_filter</p>
+    <input type="text" id="text_input_blur_filter" class="transparent_input">
+    <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
+    <div>
+        <button type="submit" class="button">Submit</button>
+    </div>
+    <div>
+        <p id="blur_valBox">Filter value: 25</p>
+            <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
+    </div>
+</div>
+    
+<script>
+    function startTest(){
+        document.getElementById("transparent_button").style.display = "none";
+    }
+    // blur_filter
+    text_input_blur_filter = document.getElementById('text_input_blur_filter');
+    
+    text_input_blur_filter.onkeyup = function() {  
+        refreshBlurCanvas();  
+    }
+
+    function refreshBlurCanvas(){
+        blur_range_value = parseFloat(document.getElementById('blur_range').value);  
+        blur_default = {amount: blur_range_value};  
+        var canvas = document.getElementById('canvas_blur_filter');
+        
+        var ctx = initializeCanvas(canvas,text_input_blur_filter);
+
+        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
+        
+        new BlurFilter().filter(data, blur_default);
+         
+        ctx.putImageData(data,0,0); 
+    }
+
+    function showBlurVal(newVal){
+        document.getElementById("blur_valBox").innerHTML = 'Filter value: ' + newVal;
+        refreshBlurCanvas();
+    }
+
+    function initializeCanvas(canvas,text_input){
+        var ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        ctx.rect(0,0,canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.fillStyle = "black";
+        ctx.font = '16px Arial';
+        ctx.fillText(text_input.value, 0, canvas.height/2 + 8); 
+        return ctx;
+    }      
+</script>
+</body>
+
+</html>
