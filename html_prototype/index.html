@@ -96,7 +96,7 @@
 
 <button type="button" class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
 <div>
-    <p>User ID:<input type="text" id="user_id" class="user_id" onkeydown="userIdFinished()"></p>
+    <p>User ID:<input type="text" id="user_id" class="user_id" onkeyup="userIdFinished()"></p>
 </div>
 <div>
     <p id="task_type">Blur_Typing_Task</p>
@@ -156,17 +156,20 @@
         }
     }
 
-    function userIdFinished(){
-        // <?php
-        //     $_SESSION["user_id"] = "green";
-        //     echo "Session variables are set.";
-        // ?>
-    }
 
+    var user_id;
+    var input_field;
     var start_seconds;
     var finish_seconds;
     var typing_task_seconds;
     var correcting_task_seconds;
+    var input_text;
+
+    function userIdFinished(){
+        user_id = document.getElementById('user_id').value;
+        console.log(user_id);
+    }
+
     function startTest(){
         start_seconds = new Date().getTime() / 1000;
         console.log(start_seconds);
@@ -177,23 +180,29 @@
     function finishTest(){
         finish_seconds = new Date().getTime() / 1000;
         document.getElementById("transparent_button").style.display = "initial";
+        input_text = document.getElementById('text_input_blur_filter').value;
         task_type = document.getElementById("task_type");
         if (task_type.innerHTML == "Blur_Typing_Task") {
             typing_task_seconds = (finish_seconds - start_seconds).toFixed(4);
             task_type.innerHTML = "Blur_Correcting_Task";
-            console.log('typing_task_seconds = ' + typing_task_seconds);
+
+            post_data = {'user_id': user_id, 'input_field':'blur_input1','time': typing_task_seconds, 'input_text': input_text}
+            console.log(post_data)
+            $.post('/data', post_data, function(data, textStatus, xhr) {
+                console.log(data)
+            });
         } else if (task_type.innerHTML == "Blur_Correcting_Task"){
             correcting_task_seconds = (finish_seconds - start_seconds).toFixed(4);
             document.getElementById("text_input_blur_filter").value = "";
             refreshBlurCanvas();
             task_type.innerHTML = "Blur_Typing_Task";
-            console.log('correcting_task_seconds = ' + correcting_task_seconds);
+
+            post_data = {'user_id': user_id, 'input_field':'blur_input2', 'time': correcting_task_seconds, 'input_text': input_text}
+            console.log(post_data)
+            $.post('/data', post_data, function(data, textStatus, xhr) {
+                console.log(data)
+            });
         }
-        post_data = {'typing_task_seconds': typing_task_seconds}
-        console.log(post_data)
-        $.post('/data', post_data, function(data, textStatus, xhr) {
-            console.log(data)
-        });
         
 
     }
