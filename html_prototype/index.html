@@ -2,11 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-    // Start the session
-    session_start();
-?>
-
 <head>
   <meta charset="UTF-8">
   <title>Blur</title>
@@ -82,11 +77,6 @@
         /*position: absolute;
         bottom: 5%;*/
     }
-    #exit_button{
-        position: absolute;
-        left: 50%;
-        bottom: 5px;
-    }
   </style>
 </head>
     
@@ -102,6 +92,7 @@
     <a href="mosaik.html">mosaik</a>
     <a href="crystallize.html">crystallize</a>
     <a href="colorhalftone.html">colorhalftone</a>
+    <button type="button" onclick="clearUserCookie()">New User</button>
     <p>User ID:<input type="text" id="user_id" class="user_id" onkeyup="userIdFinished()"></p>
     <p id="task_type">Blur_Typing_Task</p>
 </div>
@@ -117,9 +108,6 @@
         <p id="blur_valBox">Filter value: 25</p>
             <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
     </div>
-</div>
-<div class="link_div">
-    <button type="button" id="exit_button" class="button" onclick="clearUserCookie()">Exit</button>
 </div>
 
 
