@@ -15,7 +15,7 @@
     input.transparent_input{
         position: absolute;
         height: 40px;
-        width: 400px;
+        width: 300px;
        
         font-size: 16px;
         font-family: Arial;
@@ -41,7 +41,6 @@
         position: relative;
         height: 40px;
         width: 200px;
-       
         font-size: 16px;
         font-family: Arial;
         border: 1px solid black; 
@@ -51,8 +50,8 @@
     .transparent_button{
         position: absolute;
         left: 1%;
-        top:20%;
-        height: 60%;
+        top: 30%;
+        height: 50%;
         width: 98%;
         background-color: #4CAF50;
         border: none;
@@ -80,28 +79,37 @@
         z-index:1;
     }
     .link_div {
+        /*position: absolute;
+        bottom: 5%;*/
+    }
+    #exit_button{
         position: absolute;
-        bottom: 5%;
+        left: 50%;
+        bottom: 5px;
     }
   </style>
-
-
 </head>
     
-<body style=" text-align: center; margin: 10px;">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+<body style=" text-align: center; margin: 10px;" onload="page_onload()">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js.cookie/js.cookie.js"></script>    
 <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
-<!-- <script type="text/javascript" src="halftone-js/build/jquery.halftone.min.js"></script> -->
 <script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
 
 <button type="button" class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
 <div>
+    <a href="blur.html" >blur</a>
+    <a href="mosaik.html">mosaik</a>
+    <a href="crystallize.html">crystallize</a>
+    <a href="colorhalftone.html">colorhalftone</a>
     <p>User ID:<input type="text" id="user_id" class="user_id" onkeyup="userIdFinished()"></p>
+    <p id="task_type">Blur_Typing_Task</p>
 </div>
 <div>
-    <p id="task_type">Blur_Typing_Task</p>
+    <br>
+    <br>
     <input type="text" id="text_input_blur_filter" class="transparent_input">
-    <canvas id="canvas_blur_filter" width="400" height="40"></canvas>
+    <canvas id="canvas_blur_filter" width="300" height="40"></canvas>
     <div>
         <button type="button" class="button" onclick="finishTest()">Finish</button>
     </div>
@@ -111,52 +119,13 @@
     </div>
 </div>
 <div class="link_div">
-    <a href="blur.html" >blur</a><br>
-    <a href="mosaik.html">mosaik</a><br>
-    <a href="crystallize.html">crystallize</a><br>
-    <a href="colorhalftone.html">colorhalftone</a>
+    <button type="button" id="exit_button" class="button" onclick="clearUserCookie()">Exit</button>
 </div>
-    
+
+
+
 <script>
-    checkCookie();
-
-    function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires="+d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    function checkCookie() {
-        var user = getCookie("username");
-        // user does not saved to cookie
-        console.log('user' + user);
-        if (user != "") {
-            document.getElementById("user_id").value = user;
-        } else {
-            user = document.getElementById("user_id").value;
-            if (user != "" && user != null) {
-                setCookie("username", user, 365);
-            }
-        }
-    }
-
-
+    
     var user_id;
     var input_field;
     var start_seconds;
@@ -165,16 +134,27 @@
     var correcting_task_seconds;
     var input_text;
 
+    function page_onload(){
+        console.log('page_onload');
+        if (Cookies.get('user_id')){
+            document.getElementById('user_id').value = Cookies.get('user_id'); 
+            user_id = document.getElementById('user_id').value; 
+        }
+    }
+
     function userIdFinished(){
         user_id = document.getElementById('user_id').value;
         console.log(user_id);
+        if (user_id != ''){
+            Cookies.set("user_id", user_id);
+            // console.log('cookie is '+ Cookies.get('user_id'));
+        }
     }
 
     function startTest(){
         start_seconds = new Date().getTime() / 1000;
         console.log(start_seconds);
         document.getElementById("transparent_button").style.display = "none";
-        console.log(document.cookie);
     }
 
     function finishTest(){
@@ -203,9 +183,13 @@
                 console.log(data)
             });
         }
-        
-
     }
+
+    function clearUserCookie(){
+        Cookies.remove('user_id');
+        location.reload();
+    }
+
     // blur_filter
     text_input_blur_filter = document.getElementById('text_input_blur_filter');
     
