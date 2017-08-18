@@ -1,37 +1,30 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Blur</title>
+  <title>Asterisk</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    input.transparent_input{
-        position: absolute;
+
+    #text_input_asterisk_filter {
+        position: inherit;
         height: 40px;
         width: 300px;
        
         font-size: 16px;
-        font-family: Arial;
-        background-color: transparent;
-        color: transparent;
+        font-family: asterisk;
+        /*background-color: transparent;*/
+        /*color: transparent;*/
         caret-color:red;
+
         border: 1px solid black; 
         margin: 10px;
-        z-index:1;
     }
-    canvas{
-        border: 1px solid white ; 
-        margin: 10px;
-        z-index:1;
-    }
-    input[type=range] {
-        position: inherit;
-        height: 36px;
-        width: 200px;
-        z-index:1;
-    }
+
+    
     input.user_id{
         position: relative;
         height: 40px;
@@ -84,7 +77,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js.cookie/js.cookie.js"></script>    
 <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
-<script type="text/javascript" src="http://joelb.me/jsmanipulate/script/jsmanipulate.min.js"></script>
+
 
 <button type="button" class="transparent_button" id="transparent_button" onclick="startTest()">Start</button>
 <div>
@@ -96,22 +89,16 @@
     <a href="asterisk.html">asterisk</a>
     <button type="button" onclick="clearUserCookie()">New User</button>
     <p>User ID:<input type="text" id="user_id" class="user_id" onkeyup="userIdFinished()"></p>
-    <p id="task_type">Blur_Typing_Task</p>
+    <p id="task_type">Asterisk_Typing_Task</p>
 </div>
 <div>
     <br>
     <br>
-    <input type="text" id="text_input_blur_filter" class="transparent_input">
-    <canvas id="canvas_blur_filter" width="300" height="40"></canvas>
+    <input type="password" id="text_input_asterisk_filter">
     <div>
         <button type="button" class="button" onclick="finishTest()">Finish</button>
     </div>
-    <div>
-        <p id="blur_valBox">Filter value: 25</p>
-            <input type="range" id="blur_range" name="points" min="0" max="10" step="0.1" oninput="showBlurVal(this.value)" onchange="showBlurVal(this.value)">
-    </div>
 </div>
-
 
 
 <script>
@@ -150,24 +137,23 @@
     function finishTest(){
         finish_seconds = new Date().getTime() / 1000;
         document.getElementById("transparent_button").style.display = "initial";
-        input_text = document.getElementById('text_input_blur_filter').value;
+        input_text = document.getElementById('text_input_asterisk_filter').value;
         task_type = document.getElementById("task_type");
-        if (task_type.innerHTML == "Blur_Typing_Task") {
+        if (task_type.innerHTML == "Asterisk_Typing_Task") {
             typing_task_seconds = (finish_seconds - start_seconds).toFixed(4);
-            task_type.innerHTML = "Blur_Correcting_Task";
+            task_type.innerHTML = "Asterisk_Correcting_Task";
 
-            post_data = {'user_id': user_id, 'input_field':'blur_input1','time': typing_task_seconds, 'input_text': input_text}
+            post_data = {'user_id': user_id, 'input_field':'asterisk_input1','time': typing_task_seconds, 'input_text': input_text}
             console.log(post_data)
             $.post('/data', post_data, function(data, textStatus, xhr) {
                 console.log(data)
             });
-        } else if (task_type.innerHTML == "Blur_Correcting_Task"){
+        } else if (task_type.innerHTML == "Asterisk_Correcting_Task"){
             correcting_task_seconds = (finish_seconds - start_seconds).toFixed(4);
-            document.getElementById("text_input_blur_filter").value = "";
-            refreshBlurCanvas();
-            task_type.innerHTML = "Blur_Typing_Task";
+            document.getElementById("text_input_asterisk_filter").value = "";
+            task_type.innerHTML = "Asterisk_Typing_Task";
 
-            post_data = {'user_id': user_id, 'input_field':'blur_input2', 'time': correcting_task_seconds, 'input_text': input_text}
+            post_data = {'user_id': user_id, 'input_field':'asterisk_input2', 'time': correcting_task_seconds, 'input_text': input_text}
             console.log(post_data)
             $.post('/data', post_data, function(data, textStatus, xhr) {
                 console.log(data)
@@ -180,43 +166,6 @@
         location.reload();
     }
 
-    // blur_filter
-    text_input_blur_filter = document.getElementById('text_input_blur_filter');
-    
-    text_input_blur_filter.onkeyup = function() {  
-        refreshBlurCanvas();  
-    }
-
-    function refreshBlurCanvas(){
-        blur_range_value = parseFloat(document.getElementById('blur_range').value);  
-        blur_default = {amount: blur_range_value};  
-        var canvas = document.getElementById('canvas_blur_filter');
-        
-        var ctx = initializeCanvas(canvas,text_input_blur_filter);
-
-        var data = ctx.getImageData(0,0,canvas.width, canvas.height);
-        
-        new BlurFilter().filter(data, blur_default);
-         
-        ctx.putImageData(data,0,0); 
-    }
-
-    function showBlurVal(newVal){
-        document.getElementById("blur_valBox").innerHTML = 'Filter value: ' + newVal;
-        refreshBlurCanvas();
-    }
-
-    function initializeCanvas(canvas,text_input){
-        var ctx = canvas.getContext('2d');
-        ctx.beginPath();
-        ctx.rect(0,0,canvas.width, canvas.height);
-        ctx.fillStyle = "white";
-        ctx.fill();
-        ctx.fillStyle = "black";
-        ctx.font = '16px Arial';
-        ctx.fillText(text_input.value, 0, canvas.height/2 + 8); 
-        return ctx;
-    }      
 </script>
 </body>
 
